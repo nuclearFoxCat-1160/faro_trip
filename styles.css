@@ -417,34 +417,75 @@ main { max-width: 960px; margin: 0 auto; padding: 0 16px; }
 .booking dt { color: var(--muted); }
 .booking dd { margin: 0; min-width: 0; }
 
-/* Plan A / Plan B tabs */
-.plans { margin-top: 16px; }
-.plans__tabs { display: flex; gap: 4px; padding-left: 12px; }
-.plans__tab {
-  font: inherit;
-  font-size: .92rem;
-  padding: 8px 16px;
-  border: 1px solid var(--line);
-  border-bottom: 0;
-  border-radius: 10px 10px 0 0;
-  background: var(--bg);
-  color: var(--muted);
-  cursor: pointer;
+
+/* Plan A / Plan B: Plan A peels back from its bottom-right corner to show Plan B underneath */
+.flip {
+  --p: 72px;
   position: relative;
-  top: 1px;
+  display: grid;
+  margin-top: 16px;
 }
-.plans__tab[aria-selected="true"] {
-  background: var(--surface);
-  color: var(--ink);
-  font-weight: 700;
-  z-index: 1;
-}
-.plans__tab:focus-visible { outline: 2px solid var(--sea); outline-offset: 2px; }
-.plans__panel {
-  padding: 4px 16px 16px;
+.flip__page {
+  grid-area: 1 / 1;
+  min-width: 0;
+  padding: 16px 16px 84px;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
 }
-.plans__panel .booking { border: 0; padding: 12px 0 0; background: none; }
-.plans__panel[hidden] { display: none; }
+.flip__page--under { padding-bottom: 16px; background: color-mix(in srgb, var(--surface) 94%, var(--sea)); }
+.flip__page--top {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--p)), calc(100% - var(--p)) 100%, 0 100%);
+}
+.flip__flap {
+  grid-area: 1 / 1;
+  pointer-events: none;
+  clip-path: polygon(calc(100% - var(--p)) calc(100% - var(--p)), 100% calc(100% - var(--p)), calc(100% - var(--p)) 100%);
+  background-image: linear-gradient(to top left,
+    color-mix(in srgb, var(--surface) 70%, var(--ink)) 0%,
+    color-mix(in srgb, var(--surface) 80%, var(--ink)) 50%,
+    color-mix(in srgb, var(--surface) 96%, var(--ink)) 100%);
+  background-repeat: no-repeat;
+  background-size: var(--p) var(--p);
+  background-position: 100% 100%;
+}
+.flip__label {
+  margin: 0;
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--cliff);
+}
+.flip__corner {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  min-height: 72px;
+  padding: 0 84px 14px 16px;
+  display: flex;
+  align-items: flex-end;
+  border: 0;
+  background: none;
+  color: var(--sea);
+  font: inherit;
+  font-size: .9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 0 0 var(--radius) 0;
+}
+.flip__corner:focus-visible, .flip__back:focus-visible { outline: 2px solid var(--sea); outline-offset: 2px; }
+.flip.is-turning .flip__corner,
+.flip.is-b .flip__corner,
+.flip.is-b .flip__page--top,
+.flip.is-b .flip__flap { visibility: hidden; }
+.flip__back {
+  margin-top: 16px;
+  padding: 8px 16px;
+  border: 1px solid var(--sea);
+  border-radius: 999px;
+  background: none;
+  color: var(--sea);
+  font: inherit;
+  font-size: .9rem;
+  cursor: pointer;
+}

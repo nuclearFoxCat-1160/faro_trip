@@ -59,24 +59,45 @@ document.querySelectorAll('.todo input[data-key]').forEach((box) => {
   });
 });
 
-// Plan A / Plan B tabs on Day 2.
-document.querySelectorAll('.plans').forEach((plans) => {
-  const tabs = [...plans.querySelectorAll('[role="tab"]')];
-  const select = (tab) => {
-    tabs.forEach((t) => {
-      const on = t === tab;
-      t.setAttribute('aria-selected', on);
-      t.tabIndex = on ? 0 : -1;
-      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
-    });
+// Plan A / Plan B: tap the bottom-right corner to peel Plan A back and show Plan B.
+document.querySelectorAll('.flip').forEach((flip) => {
+  const top = flip.querySelector('.flip__page--top');
+  const under = flip.querySelector('.flip__page--under');
+  const corner = flip.querySelector('.flip__corner');
+  const back = flip.querySelector('.flip__back');
+  const REST = 72;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  let anim = 0;
+
+  const turn = (toB) => {
+    cancelAnimationFrame(anim);
+    const full = flip.offsetWidth + flip.offsetHeight;
+    const from = toB ? REST : full;
+    const to = toB ? full : REST;
+    const done = () => {
+      flip.style.setProperty('--p', to + 'px');
+      flip.classList.remove('is-turning');
+      flip.classList.toggle('is-b', toB);
+      top.inert = toB;
+      under.inert = !toB;
+      corner.setAttribute('aria-expanded', toB);
+      (toB ? back : corner).focus({ preventScroll: true });
+      if (!toB) flip.style.removeProperty('--p');
+    };
+    if (reduce.matches) return done();
+    flip.classList.remove('is-b');
+    flip.classList.add('is-turning');
+    const start = performance.now();
+    const step = (now) => {
+      const t = Math.min((now - start) / 700, 1);
+      const e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      flip.style.setProperty('--p', from + (to - from) * e + 'px');
+      if (t < 1) anim = requestAnimationFrame(step);
+      else done();
+    };
+    anim = requestAnimationFrame(step);
   };
-  tabs.forEach((tab, i) => {
-    tab.addEventListener('click', () => select(tab));
-    tab.addEventListener('keydown', (e) => {
-      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-      const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
-      select(next);
-      next.focus();
-    });
-  });
+
+  corner.addEventListener('click', () => turn(true));
+  back.addEventListener('click', () => turn(false));
 });
