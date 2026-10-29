@@ -416,3 +416,35 @@ main { max-width: 960px; margin: 0 auto; padding: 0 16px; }
 }
 .booking dt { color: var(--muted); }
 .booking dd { margin: 0; min-width: 0; }
+
+/* Plan A / Plan B tabs */
+.plans { margin-top: 16px; }
+.plans__tabs { display: flex; gap: 4px; padding-left: 12px; }
+.plans__tab {
+  font: inherit;
+  font-size: .92rem;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+  background: var(--bg);
+  color: var(--muted);
+  cursor: pointer;
+  position: relative;
+  top: 1px;
+}
+.plans__tab[aria-selected="true"] {
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 700;
+  z-index: 1;
+}
+.plans__tab:focus-visible { outline: 2px solid var(--sea); outline-offset: 2px; }
+.plans__panel {
+  padding: 4px 16px 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.plans__panel .booking { border: 0; padding: 12px 0 0; background: none; }
+.plans__panel[hidden] { display: none; }

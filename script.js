@@ -58,3 +58,25 @@ document.querySelectorAll('.todo input[data-key]').forEach((box) => {
     try { localStorage.setItem(STORE, JSON.stringify(saved)); } catch {}
   });
 });
+
+// Plan A / Plan B tabs on Day 2.
+document.querySelectorAll('.plans').forEach((plans) => {
+  const tabs = [...plans.querySelectorAll('[role="tab"]')];
+  const select = (tab) => {
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  };
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => select(tab));
+    tab.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      select(next);
+      next.focus();
+    });
+  });
+});
