@@ -144,7 +144,7 @@ main { max-width: 960px; margin: 0 auto; padding: 0 16px; }
 /* Overview */
 .overview {
   list-style: none;
-  margin: 0;
+  margin-top:12px;
   padding: 0;
   display: grid;
   gap: 12px;
@@ -169,7 +169,7 @@ main { max-width: 960px; margin: 0 auto; padding: 0 16px; }
 /* Flights */
 .flights {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 12px;
   margin-top: 24px;
 }
