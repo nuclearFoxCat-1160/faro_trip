@@ -398,3 +398,21 @@ main { max-width: 960px; margin: 0 auto; padding: 0 16px; }
   .hero__waves { display: none; }
   .hotel, .flight, .tipcard { box-shadow: none; break-inside: avoid; }
 }
+
+/* Booked activity */
+.booking {
+  margin-top: 16px;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.booking__name { margin: 0 0 10px; font-weight: 700; }
+.booking dl {
+  display: grid;
+  grid-template-columns: 4.5em 1fr;
+  gap: 6px 16px;
+  margin: 0;
+}
+.booking dt { color: var(--muted); }
+.booking dd { margin: 0; min-width: 0; }
