@@ -291,6 +291,7 @@ main { max-width: 960px; margin: 0 auto; padding: 0 16px; }
   font-size: .92rem;
 }
 .hotel__link:hover { background: var(--sea); color: var(--surface); }
+.hotel__links { display: flex; flex-wrap: wrap; gap: 8px; }
 
 .gallery {
   display: grid;
