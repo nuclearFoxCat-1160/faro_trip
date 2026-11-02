@@ -65,7 +65,7 @@ document.querySelectorAll('.flip').forEach((flip) => {
   const under = flip.querySelector('.flip__page--under');
   const corner = flip.querySelector('.flip__corner');
   const back = flip.querySelector('.flip__back');
-  const REST = 72;
+  const REST = 52;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   let anim = 0;
 
