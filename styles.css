@@ -567,44 +567,6 @@ main {
   margin: 0;
 }
 
-.todo__title {
-  margin: 32px 0 12px;
-  font-size: 1.3rem;
-}
-
-.todo {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 8px;
-}
-
-.todo label {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px 16px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.todo input {
-  width: 20px;
-  height: 20px;
-  margin: 4px 0 0;
-  accent-color: var(--sea);
-  flex: none;
-}
-
-.todo input:checked+span,
-.todo label:has(input:checked) {
-  color: var(--muted);
-  text-decoration: line-through;
-}
-
 .footer {
   margin-top: 56px;
   padding: 28px 16px;

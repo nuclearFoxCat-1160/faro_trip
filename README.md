@@ -4,7 +4,7 @@
 
 - `index.html` – 行程內容
 - `styles.css` – 版面（支援手機、平板、桌面及深色模式）
-- `script.js` – 酒店相片、相片放大、待預訂清單
+- `script.js` – 酒店相片、相片放大、A／B 計劃翻頁
 - `images/` – 酒店相片，檔名見 `images/README.md`
 
 本機預覽：直接打開 `index.html`，或執行 `python3 -m http.server` 再去 http://localhost:8000。

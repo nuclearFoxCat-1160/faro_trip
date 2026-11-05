@@ -47,18 +47,6 @@ document.addEventListener('click', (e) => {
   lightbox.showModal();
 });
 
-// Booking checklist, remembered on this device only.
-const STORE = 'algarve-todo';
-let saved = {};
-try { saved = JSON.parse(localStorage.getItem(STORE)) || {}; } catch {}
-document.querySelectorAll('.todo input[data-key]').forEach((box) => {
-  box.checked = !!saved[box.dataset.key];
-  box.addEventListener('change', () => {
-    saved[box.dataset.key] = box.checked;
-    try { localStorage.setItem(STORE, JSON.stringify(saved)); } catch {}
-  });
-});
-
 // Plan A / Plan B: tap the bottom-right corner to peel Plan A back and show Plan B.
 document.querySelectorAll('.flip').forEach((flip) => {
   const top = flip.querySelector('.flip__page--top');
